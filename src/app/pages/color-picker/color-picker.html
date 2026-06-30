@@ -1,0 +1,186 @@
+<section class="picker-page">
+@if(showToast){
+
+<div class="toast">
+
+    ✅ {{ toastMessage }}
+
+</div>
+
+}
+    <div class="picker-card">
+
+        <h1>🎨 Color Picker Studio</h1>
+
+        <p>
+            Choose a color and instantly view its values.
+        </p>
+
+        <div
+            class="preview"
+            [style.background]="selectedColor">
+
+        </div>
+
+        <input
+            type="color"
+            [value]="selectedColor"
+            (input)="onColorChange($event)">
+        
+        <div class="sliders">
+
+    <div class="slider">
+
+        <label>
+
+            🔴 Red
+
+            <span>{{ red }}</span>
+
+        </label>
+
+        <input
+            type="range"
+            min="0"
+            max="255"
+            [value]="red"
+            (input)="red = +$any($event.target).value; updateFromRgb()">
+
+    </div>
+
+    <div class="slider">
+
+        <label>
+
+            🟢 Green
+
+            <span>{{ green }}</span>
+
+        </label>
+
+        <input
+            type="range"
+            min="0"
+            max="255"
+            [value]="green"
+            (input)="green = +$any($event.target).value; updateFromRgb()">
+
+    </div>
+
+    <div class="slider">
+
+        <label>
+
+            🔵 Blue
+
+            <span>{{ blue }}</span>
+
+        </label>
+
+        <input
+            type="range"
+            min="0"
+            max="255"
+            [value]="blue"
+            (input)="blue = +$any($event.target).value; updateFromRgb()">
+
+    </div>
+
+</div>
+
+<div class="preset-section">
+
+    <h3>🌈 Preset Colors</h3>
+
+    <div class="preset-grid">
+
+        @for(color of presetColors; track color){
+
+        <div
+
+            class="preset"
+
+            [style.background]="color"
+
+            (click)="selectPreset(color)">
+
+        </div>
+
+        }
+
+    </div>
+
+</div>
+
+<div class="random-section">
+
+    <button
+
+        class="random-btn"
+
+        (click)="randomColor()">
+
+        🎲 Generate Random Color
+
+    </button>
+
+</div>
+
+        <div class="info">
+
+            <div class="row">
+
+                <span>HEX</span>
+
+                <div>
+
+                    <strong>{{ selectedColor }}</strong>
+
+                    <button class="copy-btn"
+                        (click)="copy(selectedColor)">
+                        📋
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <span>RGB</span>
+
+                <div>
+
+                    <strong>{{ rgb }}</strong>
+
+                    <button class="copy-btn"
+                        (click)="copy(rgb)">
+                        📋
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <span>HSL</span>
+
+                <div>
+
+                    <strong>{{ hsl }}</strong>
+
+                    <button class="copy-btn"
+                        (click)="copy(hsl)">
+                        📋
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,190 @@
+<section class="gradient-page">
+    @if(showToast){
+    <div class="toast">
+        ✅ {{ toastMessage }}
+    </div>
+    }
+
+    <div class="gradient-card">
+
+        <h1>🌅 Gradient Generator</h1>
+
+        <p>
+            Create beautiful CSS gradients instantly.
+        </p>
+
+        <div class="type-selector">
+
+    <button
+
+        class="type-btn"
+
+        [class.active]="gradientType === 'linear'"
+
+        (click)="setGradientType('linear')">
+
+        Linear
+
+    </button>
+
+    <button
+
+        class="type-btn"
+
+        [class.active]="gradientType === 'radial'"
+
+        (click)="setGradientType('radial')">
+
+        Radial
+
+    </button>
+
+    <button
+
+        class="type-btn"
+
+        [class.active]="gradientType === 'conic'"
+
+        (click)="setGradientType('conic')">
+
+        Conic
+
+    </button>
+
+        </div>
+        <div class="controls">
+
+            <div class="control">
+
+                <label>First Color</label>
+
+                <input
+                    type="color"
+                    [value]="color1"
+                    (input)="updateColor1($event)">
+
+                <span>{{ color1 }}</span>
+
+            </div>
+
+            <div class="control">
+
+                <label>Second Color</label>
+
+                <input
+                    type="color"
+                    [value]="color2"
+                    (input)="updateColor2($event)">
+
+                <span>{{ color2 }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="angle-control">
+
+            <label>
+
+                Angle
+
+                <strong>{{ angle }}°</strong>
+
+            </label>
+
+            <input
+                type="range"
+                min="0"
+                max="360"
+                [value]="angle"
+                (input)="updateAngle($event)">
+
+        </div>
+
+        <div class="direction-grid">
+
+    @for(direction of directions; track direction.label){
+
+    <button
+
+        class="direction-btn"
+
+        (click)="setDirection(direction.angle)">
+
+        {{ direction.label }}
+
+    </button>
+
+    }
+
+</div>
+
+        <div
+            class="preview"
+            [style.background]="gradientStyle">
+
+        </div>
+
+        <div class="code-box">
+
+            <pre>{{ cssCode }}</pre>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="copy-btn"
+                (click)="copyCss()">
+
+                📋 Copy CSS
+
+            </button>
+
+            <button
+                class="random-btn"
+                (click)="randomGradient()">
+
+                🎲 Random Gradient
+
+            </button>
+
+        </div>
+
+        <h2>Gradient Presets</h2>
+
+        <div class="preset-grid">
+
+        @for(preset of presetGradients; track preset.name){
+
+        <div
+        class="preset-card"
+        (click)="applyPreset(preset)">
+
+        <div
+        class="preset-preview"
+
+        [style.background]="
+        'linear-gradient(45deg,'+
+        preset.color1+
+        ','+
+        preset.color2+
+        ')'">
+
+        </div>
+
+        <h4>
+
+        {{ preset.name }}
+
+        </h4>
+
+        </div>
+
+        }
+
+        </div>
+
+    </div>
+
+</section>

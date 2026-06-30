@@ -1,0 +1,243 @@
+<section class="converter-page">
+
+  @if (showToast) {
+    <div class="toast">
+      ✅ {{ toastMessage }}
+    </div>
+  }
+
+  <div class="converter-card">
+
+    <h1>🎨 Color Converter</h1>
+
+    <p>
+      Convert HEX and RGB colors instantly with live preview.
+    </p>
+
+    <!-- Input Format -->
+
+    <div class="form-group">
+
+      <label for="inputFormat">
+        Input Format
+      </label>
+
+      <select
+        id="inputFormat"
+        [(ngModel)]="inputFormat"
+        (ngModelChange)="convert()">
+
+        <option value="HEX">HEX</option>
+        <option value="RGB">RGB</option>
+        <option value="HSL">HSL</option>
+
+      </select>
+
+    </div>
+
+    <!-- Output Format -->
+
+    <div class="form-group">
+
+      <label for="outputFormat">
+        Output Format
+      </label>
+
+      <select
+        id="outputFormat"
+        [(ngModel)]="outputFormat"
+        (ngModelChange)="convert()">
+
+        <option value="HEX">HEX</option>
+        <option value="RGB">RGB</option>
+        <option value="HSL">HSL</option>
+
+      </select>
+
+    </div>
+
+    <!-- Color Input -->
+
+    <div class="form-group">
+
+      <label for="inputValue">
+        Enter Color Value
+      </label>
+
+      <input
+        id="inputValue"
+        type="text"
+        placeholder="Example: #3B82F6 or rgb(59,130,246)"
+        [(ngModel)]="inputValue"
+        (ngModelChange)="onInputChange()">
+
+    </div>
+
+    <!-- Action Buttons -->
+
+    <div class="actions">
+
+      <button
+        class="copy-btn"
+        (click)="copyResult()">
+
+        📋 Copy
+
+      </button>
+
+      <button
+        class="swap-btn"
+        (click)="swapFormats()">
+
+        🔄 Swap
+
+      </button>
+
+      <button
+        class="clear-btn"
+        (click)="clear()">
+
+        🗑 Clear
+
+      </button>
+
+    </div>
+
+    <!-- Result -->
+
+    <div class="result">
+
+      <h3>
+        Converted Value
+      </h3>
+
+      <p>
+        {{ result || 'Conversion result will appear here.' }}
+      </p>
+
+    </div>
+
+    <!-- Live Preview -->
+
+    <div class="preview-container">
+
+      <h3>
+        Live Preview
+      </h3>
+
+      <div
+        class="preview"
+        [style.background]="previewColor">
+
+      </div>
+
+    </div>
+
+    <div class="favorite-action">
+
+    <button
+        class="favorite-btn"
+        (click)="addFavorite()">
+
+        ❤️ Add to Favorites
+
+    </button>
+
+</div>
+
+<div class="favorite-section">
+
+    <h2>
+
+        ❤️ Favorite Colors
+
+    </h2>
+
+    @if(favorites.length){
+
+    <div class="favorite-grid">
+
+        @for(color of favorites; track color){
+
+        <div class="favorite-card">
+
+            <div
+                class="favorite-preview"
+                [style.background]="color.startsWith('#') ? color : '#ffffff'">
+
+            </div>
+
+            <span>
+
+                {{ color }}
+
+            </span>
+
+            <button
+
+                (click)="removeFavorite(color)">
+
+                ❌
+
+            </button>
+
+        </div>
+
+        }
+
+    </div>
+
+    }
+
+    @else{
+
+    <p>
+
+        No favorite colors yet.
+
+    </p>
+
+    }
+
+</div>
+
+<div class="history-section">
+
+    <h2>
+
+        🕒 Conversion History
+
+    </h2>
+
+    @if(history.length){
+
+    <ul>
+
+        @for(item of history; track item){
+
+        <li>
+
+            {{ item }}
+
+        </li>
+
+        }
+
+    </ul>
+
+    }
+
+    @else{
+
+    <p>
+
+        No conversions yet.
+
+    </p>
+
+    }
+
+</div>
+  </div>
+
+</section>

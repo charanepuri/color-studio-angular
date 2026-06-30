@@ -1,0 +1,57 @@
+<section class="palette-page">
+
+    @if (showToast) {
+        <div class="toast">
+            ✅ {{ toastMessage }}
+        </div>
+    }
+
+    <div class="palette-card">
+
+        <h1>🌈 Palette Generator</h1>
+
+        <p>
+            Select a base color to generate five beautiful shades.
+        </p>
+
+        <input type="color" [value]="baseColor" (input)="onColorChange($event)">
+
+        <h3>Base Color</h3>
+
+        <div class="base-color">
+            {{ baseColor }}
+        </div>
+
+        <h3>Generated Palette</h3>
+
+        <div class="palette-grid">
+
+            @for (color of palette; track color) {
+                
+                <div class="palette-item">
+
+                    <div class="color-box" [style.background]="color"></div>
+
+                    <span>
+                        {{ color }}
+                    </span>
+
+                    <button class="copy-btn" (click)="copyColor(color)">
+                        📋 Copy
+                    </button>
+
+                </div>
+
+            }
+
+        </div>
+
+        <div class="actions">
+            <button class="random-btn" (click)="randomPalette()">
+                🎲 Generate Random Palette
+            </button>
+        </div>
+
+    </div>
+
+</section>
